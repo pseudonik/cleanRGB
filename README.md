@@ -20,3 +20,16 @@ Read-only enumeration first. Avoid driver changes and arbitrary USB/SMBus writes
 2. Validate supported protocols using local, untracked diagnostics.
 3. Add explicitly invoked, bounded lighting commands after verification.
 4. Package a small CLI without a permanent service.
+# Development
+
+Requires Python 3.10+; `hidapi` is optional and only needed for live HID queries.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python -m pip install hidapi
+.\.venv\Scripts\python -m unittest discover -s tests -v
+.\.venv\Scripts\python scripts\aura_probe.py
+.\.venv\Scripts\python scripts\aura_probe.py --query config
+```
+
+Queries do not change lighting modes. The probe prints only validation status by default. `--save-private` writes raw data into ignored `artifacts/`; do not publish it. No color-changing command is implemented.
