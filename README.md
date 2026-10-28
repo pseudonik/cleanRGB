@@ -33,3 +33,11 @@ python -m venv .venv
 ```
 
 Queries do not change lighting modes. The probe prints only validation status by default. `--save-private` writes raw data into ignored `artifacts/`; do not publish it. No color-changing command is implemented.
+
+## Offline lighting packet construction
+
+`aura_packets.py` builds 65-byte HID reports for the documented ASUS Aura direct mode (`0x35`) and direct RGB control (`0x40`). It is **offline-only**: there is no device-opening or packet-sending function in this module.
+
+Static color encoding supports one logical channel at a time (0–3), 1–120 LEDs, and 20 LEDs per packet. Unit tests verify report layout, chunking, and invalid-input rejection.
+
+**Hardware control is deliberately not enabled.** Entering direct mode may overwrite the existing lighting mode, and an exact restore procedure has not yet been established. The next step is validating mode restoration or obtaining explicit approval for a potentially persistent lighting change. Do not interpret these packet tests as a verified hardware color test.
