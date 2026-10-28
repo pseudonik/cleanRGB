@@ -1,0 +1,9 @@
+﻿# Local data and generated output
+.venv/
+__pycache__/
+*.pyc
+logs/
+artifacts/
+references/
+*.log
+*.tmp
